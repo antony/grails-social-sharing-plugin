@@ -3,6 +3,7 @@
 	Credit: Phong Thai Cao - http://www.JavaScriptBank.com
 	Please keep this credit when you use this code
 */
+
 jQuery('.sexy-bookmarks a.external').click(function() {
 	// get the current URL & encode it into the standard URI
 	var url = encodeURIComponent(window.location.href), desc = '';

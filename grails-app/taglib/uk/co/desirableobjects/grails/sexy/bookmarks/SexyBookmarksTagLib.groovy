@@ -1,6 +1,7 @@
-package sexy.bookmarks
+package uk.co.desirableobjects.grails.sexy.bookmarks
 
 import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
+import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 class SexyBookmarksTagLib {
 
@@ -32,7 +33,7 @@ class SexyBookmarksTagLib {
   private List writeHtmlList(List<String> include, Map<String, String> replacements) {
     return include.each { service ->
 
-      def details = CH.config.sexy.bookmarks[service]
+      def details = ConfigurationHolder.config.sexy.bookmarks[service]
       String parsedUrl = buildUrl(details.url, replacements)
 
       out << "<li class='shr-${service}'><a href='${parsedUrl}' rel='nofollow' class='external' title='${details.share}'>${details.share}</a></li>"
@@ -44,7 +45,7 @@ class SexyBookmarksTagLib {
     List<String> include = attrs.include?.split('\\,') ?: []
 
     if (include.isEmpty()) {
-      include = CH.config.sexy.bookmarks.enabled.collect { String service, String enabled ->
+      include = ConfigurationHolder.config.sexy.bookmarks.enabled.collect { String service, String enabled ->
         if (enabled == 'true') { return service }
       }
     }

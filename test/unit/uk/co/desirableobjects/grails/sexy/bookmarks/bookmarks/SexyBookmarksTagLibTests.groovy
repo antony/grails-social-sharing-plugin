@@ -1,4 +1,4 @@
-package sexy.bookmarks
+package uk.co.desirableobjects.grails.sexy.bookmarks.bookmarks
 
 import grails.test.*
 
