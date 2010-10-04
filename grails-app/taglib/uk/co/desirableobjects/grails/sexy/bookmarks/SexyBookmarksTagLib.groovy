@@ -1,7 +1,7 @@
 package uk.co.desirableobjects.grails.sexy.bookmarks
 
 import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import org.apache.jasper.compiler.ELParser.Char
 
 class SexyBookmarksTagLib {
 
@@ -16,36 +16,32 @@ class SexyBookmarksTagLib {
 
   def bookmarks = { attrs, body ->
 
-    List<String> include = listIncludedServices(attrs)
+    Collection<String> include = listIncludedServices(attrs)
     Map<String, String> replacements = buildReplacementsList(attrs)
+    String sloganCss = fetchSloganClass(attrs.slogan)
 
-    out << '''
-      <div class="shr-bookmarks shr-bookmarks-expand shr-bookmarks-center shr-bookmarks-bg-sexy">
-      <ul class="socials">
-       '''
-        writeHtmlList(include, replacements)
-        out << '''
-      </ul>
-      </div>
-    '''
+    out << writeHtml(sloganCss, writeHtmlList(include, replacements))
   }
 
-  private List writeHtmlList(List<String> include, Map<String, String> replacements) {
-    return include.each { service ->
+  private String writeHtmlList(Collection<String> include, Map<String, String> replacements) {
+    StringBuffer buffer = new StringBuffer()
+    include.each { service ->
 
-      def details = ConfigurationHolder.config.sexy.bookmarks[service]
+      def details = CH.config.sexy.bookmarks[service]
+      println details
       String parsedUrl = buildUrl(details.url, replacements)
 
-      out << "<li class='shr-${service}'><a href='${parsedUrl}' rel='nofollow' class='external' title='${details.share}'>${details.share}</a></li>"
-
+      buffer.append("<li class='shr-${service}'><a href='${parsedUrl}' rel='nofollow' class='external' title='${details.share}'>${details.share}</a></li>")
+      includeJs(buffer, service, details)
     }
+    return buffer.toString()
   }
 
-  private List<String> listIncludedServices(attrs) {
-    List<String> include = attrs.include?.split('\\,') ?: []
+  private Collection<String> listIncludedServices(attrs) {
+    Collection<String> include = attrs.include?.split('\\,') ?: []
 
     if (include.isEmpty()) {
-      include = ConfigurationHolder.config.sexy.bookmarks.enabled.collect { String service, String enabled ->
+      include = CH.config.sexy.bookmarks.enabled.collect { String service, String enabled ->
         if (enabled == 'true') { return service }
       }
     }
@@ -54,13 +50,13 @@ class SexyBookmarksTagLib {
     return include
   }
 
-  private Map<String, String> buildReplacementsList(attrs) {
+  private LinkedHashMap<String, String> buildReplacementsList(attrs) {
     Map<String, String> replacements = [
             'PERMALINK': attrs.permaLink.encodeAsURL(),
-            'TITLE': attrs.title.encodeAsURL(),
             'SHORT_TITLE': attrs.title.encodeAsURL(),
-            'TEASER': attrs.teaser.encodeAsURL(),
+            'TITLE': attrs.title.encodeAsURL(),
             'YAHOOTEASER': attrs.teaser.encodeAsURL(),
+            'TEASER': attrs.teaser.encodeAsURL(),
             'YAHOOCATEGORY': attrs.yahooCategory.encodeAsURL(),
             'YAHOOMEDIATYPE': attrs.yahooMediaType.encodeAsURL(),
             'POST_SUMMARY': attrs.summary.encodeAsURL(),
@@ -68,7 +64,7 @@ class SexyBookmarksTagLib {
             'TWITT_CAT': attrs.twitterCategory.encodeAsURL(),
             'DEFAULT_TAGS': attrs.tags.encodeAsURL(),
             'FETCH_URL': attrs.from.encodeAsURL()
-    ]
+    ] as LinkedHashMap<String, String>
     return replacements
   }
 
@@ -79,6 +75,33 @@ class SexyBookmarksTagLib {
         parsedUrl = parsedUrl.replaceAll(token, value)
       }
       return parsedUrl
+  }
+
+  private String fetchSloganClass(String slogan) {
+    if (!slogan?.isEmpty()) {
+      return slogan == 'sexy' ? 'shr-bookmarks-bg-shr' : "shr-bookmarks-bg-${slogan}"
+    }
+    return ""
+  }
+
+  private String writeHtml(String sloganCss, String serviceList) {
+    return """
+      <div class='shr-bookmarks shr-bookmarks-expand shr-bookmarks-center ${sloganCss}'>
+      <ul class='socials'>
+        ${serviceList}
+      </ul>
+      </div>
+    """
+  }
+
+  private String includeJs(StringBuffer buffer, String service, ConfigObject details) {
+    if (!details.onclick?.isEmpty()) {
+      buffer.append(g.javascript([:], { return """
+        jQuery('.shr-${service} a.external').click(function() {
+          ${details.onclick}
+        });
+      """ }))
+    }
   }
 
 }

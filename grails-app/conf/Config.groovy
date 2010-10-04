@@ -169,12 +169,13 @@ sexy {
       check = "Facebook"
       share = "Share this on Facebook"
       url = "http://www.facebook.com/share.php?v=4&amp;src=bm&amp;u=PERMALINK&amp;t=TITLE"
+      onclick = "window.open(this.href,'sharer','toolbar=0,status=0,width=626,height=436'); return false;"
     }
     twitter {
       id = "7"
       check = "Twitter"
       share = "Tweet This!"
-      url = "http://twitter.com/home?status="
+      url = "http://twitter.com/home?status=SHORT_TITLE+-+FETCH_URL&amp;source=shareaholic"
     }
     mail {
       id = "201"
