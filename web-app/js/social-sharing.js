@@ -6,7 +6,7 @@ jQuery(document).ready(function() {
 		revert:       true, 
 		opacity:      0.7
 	});
-	if (jQuery('.shrsb-bookmarks')) { jQuery('#shrsb-sortables').sortable({ 
+	if (jQuery('.shrsb-sharing')) { jQuery('#shrsb-sortables').sortable({
 		handle:      '.box-mid-head',
 		delay:        250,
 		cursor:      'move',

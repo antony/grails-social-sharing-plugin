@@ -1,16 +1,15 @@
-package uk.co.desirableobjects.grails.sexy.bookmarks
+package uk.co.desirableobjects.grails.social.sharing
 
 import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
-import org.apache.jasper.compiler.ELParser.Char
 
 class SexyBookmarksTagLib {
 
-  static def namespace = 'sexy'
+  static def namespace = 'social'
 
   def initialise = { attrs, body ->
     out << g.javascript([library:'jquery', plugin:'jquery'], body())
-    out << g.javascript([library:'sexy-bookmarks-public'], body())
-    out << g.javascript([library:'sexy-bookmarks-grails'], body())
+    out << g.javascript([library:'social-sharing-public'], body())
+    out << g.javascript([library:'social-sharing-grails'], body())
     out << "<link rel='stylesheet' type='text/css' href='${resource(dir:'css', file:'style.css')}' media='screen, projector' />"
   }
 
@@ -79,7 +78,7 @@ class SexyBookmarksTagLib {
 
   private String fetchSloganClass(String slogan) {
     if (!slogan?.isEmpty()) {
-      return slogan == 'sexy' ? 'shr-bookmarks-bg-shr' : "shr-bookmarks-bg-${slogan}"
+      return slogan == 'social' ? 'shr-sharing-bg-shr' : "shr-bookmarks-bg-${slogan}"
     }
     return ""
   }

@@ -211,7 +211,7 @@ sexy {
       id = "74"
       check = "Google Bookmarks"
       share = "Add this to Google Bookmarks"
-      url = "http://www.google.com/bookmarks/mark?op=add&amp;bkmk=PERMALINK&amp;title=TITLE"
+      url = "http://www.google.com/sharing/mark?op=add&amp;bkmk=PERMALINK&amp;title=TITLE"
     }
     googlereader {
       id = "207"
@@ -294,8 +294,8 @@ sexy {
     /**
     '100zakladok' {
       id = "281"
-      check = "100 bookmarks (Russian)"
-      share = "Add this to 100 bookmarks"
+      check = "100 sharing (Russian)"
+      share = "Add this to 100 sharing"
       url = "http://www.100zakladok.ru/save/?bmurl=PERMALINK&amp;bmtitle=TITLE"
     }
  **/
@@ -327,7 +327,7 @@ sexy {
       id = "264"
       check = "Ning"
       share = "Add this to Ning"
-      url = "http://bookmarks.ning.com/addItem.php?url=PERMALINK&amp;T=TITLE"
+      url = "http://sharing.ning.com/addItem.php?url=PERMALINK&amp;T=TITLE"
     }
     identica {
       id = "205"
@@ -625,3 +625,6 @@ sexy {
     }
   }
 }
+// The following properties have been added by the Upgrade process...
+grails.views.default.codec="none" // none, html, base64
+grails.views.gsp.encoding="UTF-8"

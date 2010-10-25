@@ -1,4 +1,4 @@
-class SexyBookmarksGrailsPlugin {
+class SocialSharingGrailsPlugin {
     // the plugin version
     def version = "0.1"
     // the version or versions of Grails the plugin is designed for
@@ -19,7 +19,7 @@ This plugin provides a tag library for inserting 'Sexy Bookmarks' into your appl
 '''
 
     // URL to the plugin's documentation
-    def documentation = "http://grails.org/plugin/sexy-bookmarks"
+    def documentation = "http://grails.org/plugin/social-sharing"
 
     def doWithWebDescriptor = { xml ->
         // TODO Implement additions to web.xml (optional), this event occurs before 
