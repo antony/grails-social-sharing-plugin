@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Social Sharing Demo</title>
-    <sexy:initialise />
+    <social:initialise />
   </head>
-  <body><sexy:bookmarks slogan="german" permaLink="http://www.grails.org/plugin/social-sharing" title="Testing my plugin" include="digg,twitter,facebook,plaxo,gmail" /></body>
+  <body><social:bookmarks slogan="german" permaLink="http://www.grails.org/plugin/social-sharing" title="Testing my plugin" include="digg,twitter,facebook,plaxo,gmail" /></body>
 </html>

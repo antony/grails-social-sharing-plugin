@@ -1,10 +1,10 @@
 class SocialSharingGrailsPlugin {
     // the plugin version
-    def version = "0.1"
+    def version = "1.0"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.1 > *"
     // the other plugins this plugin depends on
-    def dependsOn = [jquery:'1.4.2.6']
+    def dependsOn = [jquery:'1.4.2.6 > *']
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
             "grails-app/views/error.gsp"
@@ -14,9 +14,8 @@ class SocialSharingGrailsPlugin {
     def author = "Antony Jones"
     def authorEmail = "aj@desirableobjects.co.uk"
     def title = "Grails plugin which provides 'Sexy Bookmarks'"
-    def description = '''\\
-This plugin provides a tag library for inserting 'Sexy Bookmarks' into your application.
-'''
+    def description = "This plugin provides a tag library for inserting 'Sexy Bookmarks' into your application."
+    def license = 'gpl'
 
     // URL to the plugin's documentation
     def documentation = "http://grails.org/plugin/social-sharing"
