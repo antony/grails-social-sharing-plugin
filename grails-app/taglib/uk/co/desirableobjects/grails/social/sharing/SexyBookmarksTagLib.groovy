@@ -27,7 +27,6 @@ class SexyBookmarksTagLib {
     include.each { service ->
 
       def details = CH.config.sexy.bookmarks[service]
-      println details
       String parsedUrl = buildUrl(details.url, replacements)
 
       buffer.append("<li class='shr-${service}'><a href='${parsedUrl}' rel='nofollow' class='external' title='${details.share}'>${details.share}</a></li>")
